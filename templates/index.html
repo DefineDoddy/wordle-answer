@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle Answer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <div class="container">
+        <h1 class="word-heading">THE WORDLE OF THE DAY IS</h1>
+        <button class="word" onclick="copyText()">{{word}}</button>
+        <script type="text/javascript">
+            function copyText() {
+                var word = document.getElementsByClassName("word")[0].textContent;
+                //word = word.substring(0, 1) + word.substring(1, word.length).toLowerCase();
+                const element = document.createElement('textarea');
+                element.value = word;
+                document.body.appendChild(element);
+                element.select();
+                document.execCommand('copy');
+                document.body.removeChild(element);
+                //navigator.clipboard.writeText(word);
+                //alert("Copied Wordle of the day: " + word);
+                let toast = document.querySelector(".toast");
+                toast = new bootstrap.Toast(toast);
+                toast.show();
+            }
+        </script>
+    </div>
+    <div class="toast-container position-absolute p-3 start-50 bottom-0 translate-middle-x">
+        <div class="toast">
+            <div class="toast-body">
+                <div class="d-flex justify-content-between">
+                    <strong>Copied Wordle of the day: {{word}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
