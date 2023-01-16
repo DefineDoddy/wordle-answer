@@ -11,18 +11,18 @@ FILE_PATH = '/tmp/data/'
 
 def get_word():
     print("Finding wordle...")
-    try:
-        f = open(f"{FILE_PATH}word.txt", "r")
-        text = f.read()
-        f.close()
-        date = datetime.strptime(text.split("=")[0], "%d/%m/%Y").date()
-        if date >= datetime.now().date():
-            word = text.split("=")[1]
-            print("Stored wordle still valid")
-            print("Found wordle from file: " + word)
-            return text.split("=")[1]
-    except:
-        pass
+    # try:
+    #     f = open(f"{FILE_PATH}word.txt", "r")
+    #     text = f.read()
+    #     f.close()
+    #     date = datetime.strptime(text.split("=")[0], "%d/%m/%Y").date()
+    #     if date >= datetime.now().date():
+    #         word = text.split("=")[1]
+    #         print("Stored wordle still valid")
+    #         print("Found wordle from file: " + word)
+    #         return text.split("=")[1]
+    # except:
+    #     pass
 
     print("Requesting wordle...")
 
@@ -37,14 +37,14 @@ def get_word():
 
         print("Found wordle from request: " + word)
 
-        if not os.path.exists(FILE_PATH):
-            os.makedirs(FILE_PATH)
+        # if not os.path.exists(FILE_PATH):
+        #     os.makedirs(FILE_PATH)
 
-        f = open(f"{FILE_PATH}/word.txt", "w+")
-        f.write(datetime.today().strftime("%d/%m/%Y") + "=" + word)
-        f.close()
+        # f = open(f"{FILE_PATH}/word.txt", "w+")
+        # f.write(datetime.today().strftime("%d/%m/%Y") + "=" + word)
+        # f.close()
 
-        print("Saved wordle to storage")
+        # print("Saved wordle to storage")
         return word
     except Exception as e:
         return '[ERROR] ' + str(e)
@@ -55,7 +55,3 @@ word = get_word()
 @app.route('/')
 def display_word():
     return render_template("index.html", word=word)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
